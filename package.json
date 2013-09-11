@@ -1,0 +1,24 @@
+{
+  "name": "rpiled.js",
+  "version": "0.0.0",
+  "description": "RPi LED Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "raspberrypi",
+    "rpi",
+    "led",
+    "sockets",
+    "websockets"
+  ],
+  "author": "Justin J. Novack",
+  "license": "MIT",
+  "dependencies": {
+    "express": "~3.4.0",
+    "socket.io": "~0.9.16",
+    "socket.io-client": "~0.9.16"
+  }
+}

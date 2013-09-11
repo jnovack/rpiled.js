@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Color Picker</title>
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css"></link>
+  <link rel="stylesheet" type="text/css" href="spectrum.css"></link>
+  <style>
+  .sp-picker-container {
+    width: 300px;
+  }
+  </style>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <script type="text/javascript" src="spectrum.js"></script>
+  <script type="text/javascript">
+  var socket = io.connect(document.location);
+  function sendColor(num, red, green, blue, alpha) {
+      socket.emit('setcolor', { index: num, red: red, green: green, blue: blue, alpha: alpha });
+  }
+  function hex(x) {
+    return ("0" + parseInt(x).toString(16)).slice(-2);
+  }
+  socket.on('getcolor', function(data) {
+    $("#colorpicker"+data.index).spectrum("set", "#" + hex(data.red) + hex(data.green) + hex(data.blue));
+    console.log(data);
+  });
+  </script>
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="http://www.ozmonet.com/projects/rpiled.html">rpiled.js</a>
+        <div class="nav">
+          <ul class="nav">
+            <li><a href="#">Raspberry Pi LED Color Change Demo</a></li>
+          </ul>
+        </div>
+        <div class="nav pull-right">
+          <ul class="nav pull-right">
+            <li><a href="https://www.github.com/jnovack/rpiled.js">Source</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="hero-unit">
+    <h3>rpiled.js Color Picker</h3>
+    <p>This is the demo color picker page for my <a href="http://www.ozmonet.com/projects/rpiled.html">rpiled.js</a>
+    project.  This page will allow you to set the color and will react to other people setting the color via this
+    same interface.  Go ahead, open this page up in another window.</p>
+    <input type='text' id="colorpicker1" />
+    <input type='text' id="colorpicker2" />
+    <input type='text' id="colorpicker3" />
+    <input type='text' id="colorpicker4" />
+    </div>
+  </div>
+  <script>
+  $(document).ready(
+    function() {
+      $("#colorpicker1").spectrum({
+        flat: true,
+        showAlpha: true,
+        clickoutFiresChange: true,
+        showInitial: true,
+        preferredFormat: "hex6",
+        showButtons: false,
+        showInput: true,
+        showPalette: true,
+        palette: [
+          ['white', 'brown'],
+          ['red', 'yellow'],
+          ['green', 'orange'],
+          ['blue', 'purple']
+        ],
+        move: function(color) {
+          var rgba = color.toRgb();
+          sendColor(1, rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 255));
+        },
+        change: function(color) {
+          var rgba = color.toRgb();
+          sendColor(1, rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 255));
+        }
+      });
+      $("#colorpicker2").spectrum({
+        flat: true,
+        showAlpha: true,
+        clickoutFiresChange: true,
+        showInitial: true,
+        preferredFormat: "hex6",
+        showButtons: false,
+        showInput: true,
+        showPalette: true,
+        palette: [
+          ['white', 'brown'],
+          ['red', 'yellow'],
+          ['green', 'orange'],
+          ['blue', 'purple']
+        ],
+        move: function(color) {
+          var rgba = color.toRgb();
+          sendColor(2, rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 255));
+        },
+        change: function(color) {
+          var rgba = color.toRgb();
+          sendColor(2, rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 255));
+        }
+      });
+      $("#colorpicker3").spectrum({
+        flat: true,
+        showAlpha: true,
+        clickoutFiresChange: true,
+        showInitial: true,
+        preferredFormat: "hex6",
+        showButtons: false,
+        showInput: true,
+        showPalette: true,
+        palette: [
+          ['white', 'brown'],
+          ['red', 'yellow'],
+          ['green', 'orange'],
+          ['blue', 'purple']
+        ],
+        move: function(color) {
+          var rgba = color.toRgb();
+          sendColor(3, rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 255));
+        },
+        change: function(color) {
+          var rgba = color.toRgb();
+          sendColor(3, rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 255));
+        }
+      });
+      $("#colorpicker4").spectrum({
+        flat: true,
+        showAlpha: true,
+        clickoutFiresChange: true,
+        showInitial: true,
+        preferredFormat: "hex6",
+        showButtons: false,
+        showInput: true,
+        showPalette: true,
+        palette: [
+          ['white', 'brown'],
+          ['red', 'yellow'],
+          ['green', 'orange'],
+          ['blue', 'purple']
+        ],
+        move: function(color) {
+          var rgba = color.toRgb();
+          sendColor(4, rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 255));
+        },
+        change: function(color) {
+          var rgba = color.toRgb();
+          sendColor(4, rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 255));
+        }
+      });
+    });
+  </script>
+  </body>
+</html>
