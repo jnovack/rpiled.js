@@ -41,6 +41,12 @@ io.sockets.on('connection', function(socket) {
   // Initialize Client with current variables
   socket.emit('color', { index: 1, red: colors[1].red, green: colors[1].green, blue: colors[1].blue, alpha: colors[1].alpha});
   console.log('emit: ' + JSON.stringify({ index: 1, red: colors[1].red, green: colors[1].green, blue: colors[1].blue, alpha: colors[1].alpha}));
+  socket.emit('color', { index: 2, red: colors[2].red, green: colors[2].green, blue: colors[2].blue, alpha: colors[2].alpha});
+  console.log('emit: ' + JSON.stringify({ index: 2, red: colors[2].red, green: colors[2].green, blue: colors[2].blue, alpha: colors[2].alpha}));
+  socket.emit('color', { index: 3, red: colors[3].red, green: colors[3].green, blue: colors[3].blue, alpha: colors[3].alpha});
+  console.log('emit: ' + JSON.stringify({ index: 3, red: colors[3].red, green: colors[3].green, blue: colors[3].blue, alpha: colors[3].alpha}));
+  socket.emit('color', { index: 4, red: colors[4].red, green: colors[4].green, blue: colors[4].blue, alpha: colors[4].alpha});
+  console.log('emit: ' + JSON.stringify({ index: 4, red: colors[4].red, green: colors[4].green, blue: colors[4].blue, alpha: colors[4].alpha}));
 
   // Process data
   socket.on('set', function(data) {
