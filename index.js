@@ -53,18 +53,17 @@ io.sockets.on('connection', function(socket) {
     count++;
     //var command = Command.parse(data);
     var cmd = data;
-    console.log("Message " + count +
-      "  I: " + cmd.index +
-      "  R: " + cmd.red +
-      "  G: " + cmd.green +
-      "  B: " + cmd.blue +
-      "  A: " + cmd.alpha
-    );
     colors[cmd.index].red   = cmd.red;
     colors[cmd.index].green = cmd.green;
     colors[cmd.index].blue  = cmd.blue;
     colors[cmd.index].alpha = cmd.alpha;
-    console.log('Sent: ' + JSON.stringify({ index: 1, red: colors[1].red, green: colors[1].green, blue: colors[1].blue, alpha: colors[1].alpha}));
+    console.log('Sent: ' + JSON.stringify({
+      index: cmd.index,
+      red: colors[cmd.index].red,
+      green: colors[cmd.index].green,
+      blue: colors[cmd.index].blue,
+      alpha: colors[cmd.index].alpha
+    }));
     io.sockets.emit('color', {
       index: cmd.index,
       red: cmd.red,
