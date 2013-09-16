@@ -33,6 +33,24 @@ var io = require('socket.io').listen(server);
 io.set('log level', 0);
 // Load LED Controlling libraries here!
 
+var LEDDRIVER = require("leddriver");
+var driver = new LEDDRIVER(24, 12, "/dev/spidev0.0");
+
+function decToHex(d) {
+    var hex = Number(d).toString(16);
+    padding = typeof (padding) === "undefined" || padding === null ? padding = 2 : padding;
+
+    while (hex.length < padding) {
+        hex = "0" + hex;
+    }
+    return hex;
+}
+
+function changeColor(r, g, b) {
+	console.log("#" + decToHex(r) + decToHex(g) + decToHex(b));
+	driver.setRGB("#" + decToHex(r) + decToHex(g) + decToHex(b), 0, 1, 2);
+	driver.send();
+}
 /* 
  * Socket (Back end)
  * Process the commands from the socket connections
@@ -64,6 +82,7 @@ io.sockets.on('connection', function(socket) {
       blue: colors[cmd.index].blue,
       alpha: colors[cmd.index].alpha
     }));
+    changeColor(cmd.red, cmd.green, cmd.blue);
     io.sockets.emit('color', {
       index: cmd.index,
       red: cmd.red,
