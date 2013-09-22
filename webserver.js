@@ -19,6 +19,13 @@
 //var Command = schema['lifx.Command'];
 var express = require('express')
   , app = express();
+app.get('/set/:id/:hex', function(req, res){
+    var rgb = getRGBfromHex(req.params.hex);
+    rgb.index = req.params.id;
+    rgb.alpha = 0;
+    led.emit('set', rgb)
+    res.end(JSON.stringify(rgb));
+});
 app.use(express.static(__dirname + '/www'));
 var http = require('http')
   , server = http.createServer(app)
@@ -32,6 +39,27 @@ var colors = {
     4: { index: 4, red: 0, green: 0, blue: 0, alpha: 0 }
   };
 io.set('log level', 0);
+
+
+function getRGBfromHex(color) {
+   var r, g, b;
+   if (color.length == 3) {
+     r = parseInt(color.substr(0,1)+color.substr(0,1),16);
+     g = parseInt(color.substr(1,1)+color.substr(1,1),16);
+     b = parseInt(color.substr(2,1)+color.substr(2,1),16);
+   }
+   if (color.length == 6) {
+     r = parseInt(color.substr(0,2),16);
+     g = parseInt(color.substr(2,2),16);
+     b = parseInt(color.substr(4,2),16);
+   }
+
+   if (r>=0 && r<=255 && g>=0 && g<=255 && b>=0 && b<=255) {
+     return {red:r, green:g, blue:b};
+   } else {
+     return {red:0,green:0,blue:0};
+  }
+}
 
 /*
  * Socket (Back End)
