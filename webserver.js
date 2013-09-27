@@ -24,7 +24,9 @@ app.get('/set/:id/:hex', function(req, res){
     rgb.index = req.params.id;
     rgb.alpha = 0;
     led.emit('set', rgb)
-    res.end(JSON.stringify(rgb));
+    res.shouldKeepAlive = false;
+    res.writeHead(200);
+    res.end("<html><head><title>Hutch LEDs</title></head><body>"+JSON.stringify(rgb)+"</body></html>");
 });
 app.use(express.static(__dirname + '/www'));
 var http = require('http')
