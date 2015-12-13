@@ -93,3 +93,5 @@ io.sockets.on('connection', function(socket) {
   });
   // Do something here
 });
+
+changeColor(0, 0, 255);
